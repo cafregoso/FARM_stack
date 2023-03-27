@@ -1,22 +1,28 @@
-import { Link } from "react-router-dom";
+import React from "react";
+
 const Card = ({ car }) => {
-  let { brand, price, make, year, km, cm3, _id } = car;
-
+  let { brand, price, make, year, km, cm3 } = car;
   return (
-    <Link to={`/cars/${_id}`}>
-      <div className="shadow-lg p-5 flex flex-col bg-FarmWhite rounded-lg transition ease-in-out hover:scale-105 duration-300 font-mono">
-        <div className="font-bold text-center text-lg text-FarmNavy">
-          <span className="text-FarmLime">{brand}</span> {make}
+    <div className="card card-compact w-full bg-base-100 shadow-xl hover:scale-105 transition-transform">
+      <figure>
+        <img src="https://api.lorem.space/image/car?w=400&h=225" alt="Shoes" />
+      </figure>
+      <div className="card-body">
+        <h2 className="card-title">
+          {brand} {make}
+        </h2>
+        <div className="flex flex-col justify-between items-center">
+          <div className="my-1">
+            Year: {year} / Cm3: {cm3} / Km: {km}
+          </div>
+          <div className="my-1">
+            Price: <span className="text-primary font-extrabold">{price}</span>{" "}
+            EURO
+          </div>
         </div>
-
-        <div>Year: {year}</div>
-        <div>
-          Price: <span className="font-semibold text-orange-600">{price}</span>
-        </div>
-        <div>Km: {km}</div>
-        <div>Engine: {cm3}cm3</div>
       </div>
-    </Link>
+    </div>
   );
 };
+
 export default Card;
