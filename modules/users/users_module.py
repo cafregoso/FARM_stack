@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Request, Body, status, HTTPException, Depends
+from fastapi import APIRouter, Request, Body, status, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from bson import ObjectId
-from models.user_model import UserBase, LoginUser, CurrentUser, UserCreate
+from models.user_model import UserBase, LoginUser, CurrentUser, UserCreate, FindMe
 from models.authentication import Authorization
 from typing import Optional, List
 
@@ -16,7 +16,7 @@ async def welcome():
 
 
 @user.post("/register", response_description="Register a new user")
-async def register_user(request: Request, user: UserCreate = Body(...)) -> UserBase:
+async def register_user(request: Request, user: UserCreate = Body(...)) -> JSONResponse:
     user.password = auth_handler.get_password_hash(user.password)
     user = jsonable_encoder(user)
 
@@ -47,8 +47,17 @@ async def login(request: Request, login_user: LoginUser = Body(...)) -> str:
 
 
 @user.post("/me", response_description="Get current user")
-async def get_current_user(request: Request, user_id=Depends(auth_handler.auth_wrapper)) -> CurrentUser:
-    user = await request.app.state.db["users"].find_one({"_id": ObjectId(user_id)})
+async def get_current_user(request: Request, user_id: FindMe = Body(...)) -> CurrentUser:
+    """_summary_
+
+    Args:
+        request (Request): HTTP request
+        user_id (FindMe): { "id": "user_id"}
+
+    Returns:
+        CurrentUser: Information about the current user
+    """
+    user = await request.app.state.db["users"].find_one({"_id": ObjectId(user_id.id)})
     user["_id"] = str(user["_id"])
     user.pop("password")
     return JSONResponse(status_code=status.HTTP_200_OK, content=user)

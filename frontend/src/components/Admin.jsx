@@ -6,7 +6,7 @@ const Admin = () => {
 
   return (
     <div>
-      {auth?.role === "ADMIN" ? (
+      {auth?.role === "Admin" ? (
         <span className="text-primary text-xl">
           Ok Admin! You are {auth.username} and you seem to be an Admin.
         </span>

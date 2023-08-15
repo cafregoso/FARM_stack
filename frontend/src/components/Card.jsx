@@ -2,6 +2,7 @@ import React from "react";
 
 const Card = ({ car }) => {
   let { brand, price, make, year, km, cm3 } = car;
+  console.log(car);
   return (
     <div className="card card-compact w-full bg-base-100 shadow-xl hover:scale-105 transition-transform">
       <figure>

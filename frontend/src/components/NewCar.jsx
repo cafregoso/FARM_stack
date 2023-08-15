@@ -23,7 +23,7 @@ const NewCar = () => {
 
   const onFormSubmit = async (data) => {
     data["owner"] = auth.id;
-    const response = await fetch("http://127.0.0.1:8010/cars/", {
+    const response = await fetch("http://127.0.0.1:8010/cars/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -145,9 +145,9 @@ const NewCar = () => {
               viewBox="0 0 24 24"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
